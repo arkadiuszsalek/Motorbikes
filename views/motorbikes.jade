@@ -16,11 +16,13 @@ block content
                 img.pimage(src='#{row.Image}', alt='#{row.Image}')
                 p.itemp Price: €#{row.Price}
                 p.itemp Model: #{row.Model}
+                p.itemp Quantity: #{row.Quantity}
                 a(href='item/#{row.Id}') 
                   button.button(type='button') Show
-                a(href='addToCart/#{row.Id}*#{row.Price}*#{row.Name}')
-                  button.button(type='button')
-                    i.fa.fa-shopping-cart(aria-hidden='true')   Add to cart
+                if row.Quantity>0
+                  a(href='addToCart/#{row.Id}*#{row.Price}*#{row.Name}')
+                    button.button(type='button')
+                      i.fa.fa-shopping-cart(aria-hidden='true')   Add to cart
                   
                   
          

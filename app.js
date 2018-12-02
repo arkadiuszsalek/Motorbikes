@@ -562,12 +562,15 @@ app.get('/addToCart/:id', function (req, res, next) {
   let parametr = req.params.id; //cache string from URL
   let motorData =[];   //create array of data
   motorData = parametr.split("*"); //split string base of * sign
-  console.log(motorData);
   let price = parseFloat(motorData[1]); //convert price(string) to Float
-  let id = parseFloat(motorData[0]); // convert id(string)  to Float
-  console.log(id);
+  let id = parseFloat(motorData[0]); // convert id(string) to Float
+  let sql = 'UPDATE motorbikes SET Quantity =  quantity-1 WHERE Id = "' + id +'" AND Quantity>0;'
+    let query = db.query(sql, (err, res) => {
+      if (err) throw err;
+      console.log(res);
+  })
   cart.add(motorData[2], price, id); //add data to cart
-  req.session.cart = cart;
+  req.session.cart = cart; 
   res.redirect('/motorbikes');
 });
 
@@ -577,7 +580,6 @@ app.get('/cart', function(req, res, next) {
     return res.render("cart", { products: null });
   }
   let cart = new Cart(req.session.cart ? req.session.cart : {});
-  console.log(cart.getItems());
   res.render("cart", {
     products: cart.getItems(),
     totalPrice: cart.totalPrice
@@ -586,10 +588,19 @@ app.get('/cart', function(req, res, next) {
 
 // remove from card
 app.get('/removefromcard/:id', function(req, res, next) {
-  let productId = req.params.id;
   let cart = new Cart(req.session.cart);
-  cart.remove(productId);
+  let parametr = req.params.id; //cache string from URL
+  let motorData =[];   //create array of data
+  motorData = parametr.split("*"); //split string base of * sign
+  let quantity = parseFloat(motorData[1]); //convert price(string) to Float
+  let id = parseFloat(motorData[0]); // convert id(string) to Float
+  cart.remove(id);
   req.session.cart = cart;
+  let sql = 'UPDATE motorbikes SET Quantity =  quantity + "' + quantity +'" WHERE Id = "' + id +'";'
+    let query = db.query(sql, (err, res) => {
+      if (err) throw err;
+      console.log(res);
+  })
   res.redirect('/cart');
 });
 
