@@ -53,7 +53,7 @@ db.connect((err) => {
 
 // Create a Database Table motorbikes
 app.get('/createtable', function (req, res) {
-  let sql = 'CREATE TABLE motorbikes (Id int NOT NULL AUTO_INCREMENT PRIMARY KEY, Name varchar(255), Price int, Image varchar(255), Model varchar(255));'
+  let sql = 'CREATE TABLE motorbikes (Id int NOT NULL AUTO_INCREMENT PRIMARY KEY, Name varchar(255), Price int, Image varchar(255), Model varchar(255)), Quantity int;'
   let query = db.query(sql, (err, res) => {
     if (err) throw err;
     console.log(res);
@@ -88,7 +88,7 @@ app.get('/createtableService', function (req, res) {
 
 // Insert to motorbike table
 app.get('/insert', function (req, res) {
-  let sql = 'INSERT INTO motorbikes (Name, Price, Image, Model) VALUES ("bela", 500, "city1.jpg", "city");'
+  let sql = 'INSERT INTO motorbikes (Name, Price, Image, Model, Quantity) VALUES ("bela", 500, "city1.jpg", "city", 20);'
   let query = db.query(sql, (err, res) => {
     if (err) throw err;
     console.log(res);
@@ -239,7 +239,7 @@ app.get('/alert', function (req, res) {
 app.post('/create', function (req, res) {
   if (req.session.admin == "true") {
     var name = req.body.name
-    let sql = 'INSERT INTO motorbikes (Name, Price, Image, Model) VALUES ("' + name + '", ' + req.body.price + ', "' + req.body.image + '", "' + req.body.model + '");'
+    let sql = 'INSERT INTO motorbikes (Name, Price, Image, Model, Quantity) VALUES ("' + name + '", ' + req.body.price + ', "' + req.body.image + '", "' + req.body.model + '", "' + req.body.quantity + '");'
     let query = db.query(sql, (err, res) => {
       if (err) throw err;
       console.log(res);
@@ -296,7 +296,7 @@ app.get('/editservice/:id', function (req, res) {
 // function to update individual motorbike from database based on button press and form -admin
 app.post('/edit/:id', function (req, res) {
   if (req.session.admin == "true") {
-    let sql = 'UPDATE motorbikes SET Name = "' + req.body.newname + '", Price = "' + req.body.newprice + '", Model = "' + req.body.newmodel + '", Image = "' + req.body.newimage + '" WHERE Id = "' + req.params.id + '";'
+    let sql = 'UPDATE motorbikes SET Name = "' + req.body.newname + '", Price = "' + req.body.newprice + '", Model = "' + req.body.newmodel + '", Image = "' + req.body.newimage + '", Quantity = "' + req.body.quantity + '" WHERE Id = "' + req.params.id + '";'
     let query = db.query(sql, (err, res) => {
       if (err) throw err;
       console.log(res);
