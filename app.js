@@ -232,6 +232,13 @@ app.get('/alert', function (req, res) {
   console.log("Now you are on alert page!")
 });
 
+// function to render the confirm page after PayPall payment
+app.get('/confirm', function (req, res) {
+  res.render('confirm', { root: VIEWS });
+  console.log("Now you are on confirm page!")
+});
+
+
 
 /*   ---------    Add products/service to Database section   --------  */
 
@@ -564,13 +571,13 @@ app.get('/addToCart/:id', function (req, res, next) {
   motorData = parametr.split("*"); //split string base of * sign
   let price = parseFloat(motorData[1]); //convert price(string) to Float
   let id = parseFloat(motorData[0]); // convert id(string) to Float
+  cart.add(motorData[2], price, id); //add data to cart
+  req.session.cart = cart;
   let sql = 'UPDATE motorbikes SET Quantity =  quantity-1 WHERE Id = "' + id +'" AND Quantity>0;'
     let query = db.query(sql, (err, res) => {
       if (err) throw err;
       console.log(res);
   })
-  cart.add(motorData[2], price, id); //add data to cart
-  req.session.cart = cart; 
   res.redirect('/motorbikes');
 });
 
