@@ -1,0 +1,22 @@
+extends layout
+block content
+    .row
+    .h1
+     .formHold
+      h1.itemtitle Create an account
+      form(method="post")
+        fieldset
+         label(for="name") User Name:
+         input(name="name", type="text", placeholder="Name") 
+         label(for="email") Email Address:
+         input(name="email", type="text", placeholder="Email address") 
+         label(for="password") Password:
+         input(name="password", type="text", placeholder="Password")
+         button.button(type="submit") Create Account
+     script.
+         $(document).ready(function(){
+         $(".formHold").hide()
+         });
+         $(document).ready(function(){
+         $(".formHold").show(800)
+         });

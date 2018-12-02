@@ -1,0 +1,26 @@
+extends layout
+block content
+    .row
+     .holder
+        h1        
+         .formstyle
+          a(href='cart/')
+            button.button(type='button')
+              i.fa.fa-shopping-cart(aria-hidden='true')  Cart_ 
+                if session.cart
+                 span #{session.cart.totalItems}     
+        .grid-container
+            each row in res1
+              .item 
+                h1.itemtitle #{row.Name}
+                img.pimage(src='#{row.Image}', alt='#{row.Image}')
+                p.itemp Price: €#{row.Price}
+                p.itemp Model: #{row.Model}
+                a(href='item/#{row.Id}') 
+                  button.button(type='button') Show
+                a(href='addToCart/#{row.Id}*#{row.Price}*#{row.Name}')
+                  button.button(type='button')
+                    i.fa.fa-shopping-cart(aria-hidden='true')   Add to cart
+                  
+                  
+         

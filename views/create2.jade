@@ -1,0 +1,16 @@
+extends admindashboard
+block content
+    .row
+     h1 
+     .formHold
+       form(method="post")
+        fieldset
+         label(for="name") Service Name:
+         input(name="name", type="text", placeholder="Service Name" required='')
+         label(for="phone") Service Phone Number:
+         input(name="phone", type="text", placeholder="Phone Number" required='')
+         label(for="town") Town:
+         input(name="town", type="text", placeholder="Town" required='')
+         label(for="address") Address:
+         input(name="address", type="text", placeholder="Address" required='')
+         button.button(type="submit") Add Service

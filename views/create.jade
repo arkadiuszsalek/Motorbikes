@@ -1,0 +1,16 @@
+extends admindashboard
+block content
+    .row
+     h1 
+     .formHold
+       form(method="post")
+        fieldset
+         label(for="name") MotorBike Name:
+         input(name="name", type="text", placeholder="Please Name the MotorBike" required='')
+         label(for="price") MotorBike Price:
+         input(name="price", type="text", placeholder="Please set the price for MotorBikeBike" required='')
+         label(for="image") MotorBike Image:
+         input(name="image", type="text", placeholder="Please give an image of the MotorBike" required='')
+         label(for="model") MotorBike Model:
+         input(name="model", type="text", placeholder="Please choose a model of the MotorBike" required='')
+         button.button(type="submit") Add MotorBike

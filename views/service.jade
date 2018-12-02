@@ -1,0 +1,23 @@
+extends layout
+block content
+     .row
+      .holder
+        h1        
+         .formstyle
+          form(method="post" action="search")
+                input(name="search", type="text", Placeholder="Find a service") 
+                button.button(type="submit") Search
+        .grid-container
+            each row in res1
+              .item 
+                h1.itemtitle #{row.Name}
+                p.itemp Phone: #{row.Phone}
+                p.itemp Town: #{row.Town}
+                p.itemp Address: #{row.Address}
+                a(href='item2/#{row.Id}') 
+                 button.button(type='button') Show
+        
+         
+
+
+         

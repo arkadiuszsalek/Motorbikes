@@ -1,0 +1,10 @@
+extends layout
+block content
+    .row
+      .p 
+            each row in res1
+              .item2
+                h1.itemtitle #{row.Name}
+                p.itemp Phone: €#{row.Phone}
+                p.itemp Town: #{row.Town}
+                p.itemp Address: #{row.Address}

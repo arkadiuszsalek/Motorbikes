@@ -1,0 +1,19 @@
+extends admindashboard
+block content
+    .row
+    .h1
+     .formHold
+       h1.itemtitle Edit Service
+       form(method="post")
+        each row in res1
+         fieldset
+          label(for="newname") Service Name:
+          input(name="newname", type="text", value="#{row.Name}" required='')
+          label(for="newphone") Phone number:
+          input(name="newphone", type="text",  value="#{row.Phone}" required='')
+          label(for="newtown") Town:
+          input(name="newtown", type="text",  value="#{row.Town}" required='')
+          label(for="newaddress") Address:
+          input(name="newaddress", type="text",  value="#{row.Address}" required='')
+          button.button(type="submit") Update Service
+              

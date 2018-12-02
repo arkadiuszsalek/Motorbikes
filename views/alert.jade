@@ -1,0 +1,13 @@
+extends layout
+block content
+    .row
+     h1 
+     .panel
+      h1 You have to log in as Admin
+      script.
+         $(document).ready(function(){
+         $(".panel").hide()
+         });
+         $(document).ready(function(){
+         $(".panel").show(800)
+         });

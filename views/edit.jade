@@ -1,0 +1,21 @@
+extends admindashboard
+block content
+    .row
+    .h1
+     .formHold
+       h1.itemtitle Edit The Motorbike Form
+       form(method="post")
+        each row in res1
+         fieldset
+          label(for="newname") Motorbike Name:
+          input(name="newname", type="text", value="#{row.Name}" required='')
+          label(for="newprice") Motorbike Price:
+          input(name="newprice", type="text",  value="#{row.Price}" required='')
+          label(for="newimage") Motorbike Image:
+          input(name="newimage", type="text",  value="#{row.Image}" required='')
+          label(for="newmodel") Motorbike Model:
+          input(name="newmodel", type="text",  value="#{row.Model}" required='')
+          button.button(type="submit") Update Motorbike
+              
+       
+     

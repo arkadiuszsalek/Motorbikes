@@ -1,0 +1,31 @@
+extends layout
+block content
+    .row
+     h1 
+     .formHold
+        h1 Checkout
+         if session.cart.totalItems
+          .cart.page
+            ul.list-group
+              each item in products
+                li.list-group-item.clearfix
+                  .col-xs-5
+                    strong #{item.item}
+                  .col-xs-2.text-right #{item.quantity} 
+                  .col-xs-3.text-right
+                    | #{item.price}  EUR
+                  .col-xs-2.text-right
+                    a(href='/removefromcard/#{item.id}')
+                     button.button(type='button') Remove
+          .text-right
+            strong Total: #{session.cart.totalPrice} EUR
+          hr
+          .text-right
+            a(href='#', type='button') 
+             button.button(type='button') Process
+         else 
+          h2 Your shopping cart is empty
+          a(href='motorbikes') 
+            button.button(type='button') Exit
+             
+            

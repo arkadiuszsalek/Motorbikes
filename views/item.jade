@@ -1,0 +1,13 @@
+extends layout
+block content
+    .row
+      .p 
+            each row in res1
+              .item2
+                h1.itemtitle #{row.Name}
+                img.pimage(src='../../#{row.Image}', alt='#{row.Image}')
+                p.itemp Price: €#{row.Price}
+                p.itemp Model: #{row.Model}
+               
+                
+               

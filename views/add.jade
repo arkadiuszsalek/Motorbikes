@@ -1,0 +1,15 @@
+extends layout
+block content
+    .row
+     h1
+     .formHold
+       h1.itemtitle Add a review 
+       form(method="post")
+        fieldset
+         label(for="name") Name:
+         input(name="name", type="text", placeholder="Name")
+         label(for="content") Content:
+         input(name="content", type="text", placeholder="Review")
+         button.button(type="submit") Leave Review
+              
+       

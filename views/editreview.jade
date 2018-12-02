@@ -1,0 +1,14 @@
+extends layout
+block content
+    .row
+     h1 
+     .formHold
+     
+       form(method="post")
+        each review in indOne
+         fieldset
+          label(for="name") Name:
+          input(name="name", type="text", value="#{review.name}" required='') 
+          label(for="content") Content:
+          input(name="content", type="text", value="#{review.content}" required='') 
+          button.button(type="submit") Update This Review

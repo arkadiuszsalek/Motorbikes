@@ -1,0 +1,14 @@
+extends admindashboard
+block content
+    .row
+      .holder
+        h1
+        .grid-container
+            each row in res1
+              .item 
+                h1.itemtitle #{row.Name}
+                img.pimage(src='#{row.Image}', alt='#{row.Image}')
+                p.itemp Price: €#{row.Price}
+                p.itemp Model: #{row.Model}
+                a.button(href='edit/#{row.Id}') Edit 
+                a.button(href='delete/#{row.Id}') Delete
