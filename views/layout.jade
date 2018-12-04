@@ -20,12 +20,16 @@ html
           a(href='/motorbikes') Shop
           a(href='/service') Find a service
           a(href='/reviews') See Reviews
-          a(href='/add') Leave Review
+          if session.email === "LoggedIn"
+           a(href='/add') Leave Review
           a(href='/contact') Contact us
-          a(href='/register') Sign up
-          a(href='/login') Log-In
-          a(href='/logout') Log-Out
-          a(href='/admindashboard') Admin
+          if session.email !== "LoggedIn"
+           a(href='/register') Sign up
+           a(href='/login') Log-In
+          if session.email === "LoggedIn"
+           a(href='/logout') Log-Out
+          if session.admin === "true"
+           a(href='/admindashboard') Admin
       block content
     .footer
        img.logo(src="../motorbikes.jpg") 

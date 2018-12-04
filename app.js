@@ -120,6 +120,8 @@ app.get('/', function (req, res) {
 
 // function to render the index2( admin dashboard) page
 app.get('/admindashboard', function (req, res) {
+  let cart = new Cart(req.session.cart ? req.session.cart : {});
+  req.session.cart = cart;
   if (req.session.admin == "true") {
     res.render('index2', { root: VIEWS });
   }
@@ -382,7 +384,7 @@ app.get('/add', function (req, res) {
 // post request to add JSO REVIEW
 app.post('/add', function (req, res) {
 
-  // This will look for the current largest id in the reviews JSON file this is only needed if you want the reviews to have an auto ID which is a good idea 
+  // This will look for the current largest id in the reviews JSON file, reviews have an auto ID  
   function getMax(reviews, id) {
     let max
     for (let i = 0; i < reviews.length; i++) {
@@ -395,7 +397,6 @@ app.post('/add', function (req, res) {
 
   let maxPpg = getMax(reviews, "id"); // This calls the function above and passes the result as a variable called maxPpg.
   newId = maxPpg.id + 1;  // this creates a nwe variable called newID which is the max Id + 1
-  console.log(newId); // We console log the new id for show reasons only
 
   // create a new product based on what we have in our form on the add page 
   let review = {
@@ -404,7 +405,6 @@ app.post('/add', function (req, res) {
     content: req.body.content, // content called from the add.jade page textbox
 
   };
-  console.log(review) // Console log the new product 
   let json = JSON.stringify(reviews); // Convert from object to string
 
   // The following function reads the json file then pushes the data from the variable above to the reviews JSON file. 
@@ -518,7 +518,6 @@ app.get('/register', function (req, res) {
 app.post('/register', function (req, res) {
   db.query('INSERT INTO users (Name, Email, Password) VALUES ("' + req.body.name + '", "' + req.body.email + '", "' + req.body.password + '")'
   );
-  req.session.email = "LoggedIn";
   res.redirect('/login');
 });
 
@@ -555,8 +554,9 @@ app.post('/login', function (req, res) {
 
 // Log Out Route 
 app.get('/logout', function (req, res) {
-  res.render('index', { root: VIEWS });
-  req.session.destroy(session.email);
+  req.session.email="";
+  req.session.admin="false";
+  res.redirect("/");
 })
 // end logout route 
 
@@ -566,11 +566,11 @@ app.get('/logout', function (req, res) {
 // add to cart base on id
 app.get('/addToCart/:id', function (req, res, next) {
   let cart = new Cart(req.session.cart ? req.session.cart : {});
-  let parametr = req.params.id; //cache string from URL
+  let parametr = req.params.id; //catch string from URL
   let motorData =[];   //create array of data
   motorData = parametr.split("*"); //split string base of * sign
-  let price = parseFloat(motorData[1]); //convert price(string) to Float
-  let id = parseFloat(motorData[0]); // convert id(string) to Float
+  let price = parseInt(motorData[1]); //convert price(string) to Int
+  let id = parseInt(motorData[0]); // convert id(string) to Int
   cart.add(motorData[2], price, id); //add data to cart
   req.session.cart = cart;
   let sql = 'UPDATE motorbikes SET Quantity =  quantity-1 WHERE Id = "' + id +'" AND Quantity>0;'
@@ -587,20 +587,29 @@ app.get('/cart', function(req, res, next) {
     return res.render("cart", { products: null });
   }
   let cart = new Cart(req.session.cart ? req.session.cart : {});
+  
+  let motorbikes =cart.getItems();
+  let str1 = JSON.stringify(motorbikes); //convert to string
+  let str2= str1.replace('},{',' / '); // replace characters in string
+  let str3= str2.replace( /"item"|{|}|"|[|]/g ,'');//remove few characters from string
+  let order="Motorbikes shop - " + str3; //create description for Paypal
+  
   res.render("cart", {
     products: cart.getItems(),
-    totalPrice: cart.totalPrice
+    totalPrice: cart.totalPrice,
+    description:order,
   });
+  req.session.o=order;
 });
 
 // remove from card
 app.get('/removefromcard/:id', function(req, res, next) {
   let cart = new Cart(req.session.cart);
-  let parametr = req.params.id; //cache string from URL
+  let parametr = req.params.id; //catch string from URL
   let motorData =[];   //create array of data
   motorData = parametr.split("*"); //split string base of * sign
-  let quantity = parseFloat(motorData[1]); //convert price(string) to Float
-  let id = parseFloat(motorData[0]); // convert id(string) to Float
+  let quantity = parseInt(motorData[1]); //convert price(string) to Int
+  let id = parseInt(motorData[0]); // convert id(string) to Int
   cart.remove(id);
   req.session.cart = cart;
   let sql = 'UPDATE motorbikes SET Quantity =  quantity + "' + quantity +'" WHERE Id = "' + id +'";'
