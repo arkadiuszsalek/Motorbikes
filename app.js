@@ -223,10 +223,10 @@ app.get('/contact', function (req, res) {
 });
 
 // function to render the service page
-app.get('/service', function (req, res) {
-  res.render('service', { root: VIEWS });
-  console.log("Now you are on service page!")
-});
+// app.get('/service', function (req, res) {
+//   res.render('service', { root: VIEWS });
+//   console.log("Now you are on service page!")
+// });
 
 // function to render the alert page
 app.get('/alert', function (req, res) {
@@ -339,7 +339,7 @@ app.get('/delete/:id', function (req, res) {
     let query = db.query(sql, (err, res1) => {
       if (err)
         throw (err);
-      res.redirect('/adminmotorbike'); // use the render command so that the response object renders a HHTML page
+      res.redirect('/adminmotorbike'); // use the render command so that the response object renders a HTML page
     });
   } else {
     res.redirect('/login');
@@ -353,7 +353,7 @@ app.get('/deleteservice/:id', function (req, res) {
     let query = db.query(sql, (err, res1) => {
       if (err)
         throw (err);
-      res.redirect('/adminservice'); // use the render command so that the response object renders a HHTML page
+      res.redirect('/adminservice'); // use the render command so that the response object renders a HTML page
     });
   } else {
     res.redirect('/login');
@@ -381,7 +381,7 @@ app.get('/add', function (req, res) {
   res.render('add', { root: VIEWS });
 });
 
-// post request to add JSO REVIEW
+// post request to add JSON REVIEW
 app.post('/add', function (req, res) {
 
   // This will look for the current largest id in the reviews JSON file, reviews have an auto ID  
@@ -599,7 +599,6 @@ app.get('/cart', function(req, res, next) {
     totalPrice: cart.totalPrice,
     description:order,
   });
-  req.session.o=order;
 });
 
 // remove from card
@@ -626,6 +625,8 @@ app.get('/removefromcard/:id', function(req, res, next) {
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function () {
   console.log("App is Running");
 });
+
+module.exports = app; // export app needed for tests
 
 
 
