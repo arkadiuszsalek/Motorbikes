@@ -1,11 +1,11 @@
 Final Project for Higher Diploma in Science in Web Technologies at NCI <br>
 MOTORBIKES CENTRE <br>
 
-user login
-Name: test123
-Password: test123
+User login<br>
+Name: test123<br>
+Password: test123<br>
 
-administrator login
-Name: Administrator
+administrator login<br>
+Name: Administrator<br>
 Password: Administrator
 
