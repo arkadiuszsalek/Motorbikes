@@ -5,7 +5,7 @@ User login<br>
 Name: test123<br>
 Password: test123<br>
 
-administrator login<br>
+Administrator login<br>
 Name: Administrator<br>
 Password: Administrator
 
